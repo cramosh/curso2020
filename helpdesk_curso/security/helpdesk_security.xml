@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Data es opcional y las guidelines si añadimos el noupdate = 1 no permite actualizar los datos -->
+    <data noupdate="1">
+        <!-- Creamos un grupo de seguridad nuevo-->
+        <record id="group_user_helpdesk" model="res.groups">
+            <field name="name">Member Helpdesk Team</field>
+        </record>
+        <!-- Creamos un grupo de seguridad que hereda del grupo helpdesk.group_user_helpdesk -->
+        <record id="group_user_helpdesk" model="res.groups">
+            <field name="name">Member Mmanager Team</field>
+            <field name="implied_ids" eval="[(4, ref('helpdesk.group_user_helpdesk'))]"></field>
+        </record>
+    </data>
+</odoo>

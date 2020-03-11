@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="wizard_select_template" model="ir.ui.view">
+            <field name="name">Select Move Template</field>
+            <field name="model">wizard.select.move.template</field>
+            <field name="arch" type="xml">
+                <form string="Move Template" >
+                    <field name="state" invisible="1"/>
+                </form>
+            </field>
+        </record>
+
+       <act_window name="Create Move from Template"
+            res_model="wizard.select.move.template"
+            src_model="account.move"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"
+            id="action_wizard_select_template_by_move"
+            view_id="wizard_select_template"/>
+
+        <menuitem name="name_menu" action="id_action" id="id_menu" sequence="num_orden" parent="module.id_parent"/>
+</odoo>
