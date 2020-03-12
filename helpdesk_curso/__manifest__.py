@@ -14,8 +14,12 @@
     'data': [
         'security/helpdesk_security.xml',
         'security/ir.model.access.csv',
+        'views/menu.xml',
         'views/sale_order.xml',
         'views/helpdesk_ticket_views.xml',
+        'views/helpdesk_team_views.xml',
+        'views/helpdesk_ticket_stage_views.xml',
+        'views/res_user_views.xml',
     ],
     'test': [
     ],

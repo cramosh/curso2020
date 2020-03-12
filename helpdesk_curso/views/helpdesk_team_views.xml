@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Form-->
+    <record id="view_helpdesk_team_form" model="ir.ui.view">
+        <field name="name">view.helpdesk.team.form</field>
+        <field name="model">helpdesk.team</field>
+        <field name="arch" type="xml">
+            <form string="Ticket">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="ticket_ids"/>
+                    </group>
+                        <notebook>
+                            <page name="users_team" string="Users">
+                                <field name="user_ids"/>
+                            </page>
+                        </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree-->
+    <record id="view_helpdesk_team_tree" model="ir.ui.view">
+        <field name="name">view.helpdesk.team.form</field>
+        <field name="model">helpdesk.team</field>
+        <field name="arch" type="xml">
+            <tree string="Teams">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Search-->
+    <record id="view_helpdesk_team_search" model="ir.ui.view">
+        <field name="name">view.helpdesk.team.search</field>
+        <field name="model">helpdesk.team</field>
+        <field name="arch" type="xml">
+            <search string="Team">
+                <field name="name" string="Team"/>
+            </search>
+        </field>
+    </record>
+
+    <!--Action -->
+    <record id="helpdesk_team_action" model="ir.actions.act_window">
+        <field name="name">Teams</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">helpdesk.team</field>
+        <field name="view_mode">tree,form,pivot</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to add a new Team.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_team_view"
+              action="helpdesk_team_action"
+              sequence="10"
+              name="Teams"
+              parent="menu_hd_config"/>
+</odoo>

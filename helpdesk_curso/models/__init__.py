@@ -4,3 +4,6 @@
 
 from . import sale_order
 from . import helpesk_ticket
+from . import helpesk_team
+from . import helpesk_ticket_stage
+from . import res_users

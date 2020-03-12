@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form-->
+    <record id="view_res_users_form" model="ir.ui.view">
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="model">res.users</field>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_show_accesses']" position="after">
+                <button name="action_show_tickets" type="object" class="oe_stat_button"
+                        icon="fa-files-o">
+                    <field string="Tickets" name="tickets_count" widget="statinfo"/>
+                </button>
+            </xpath>
+            <field name="name" position="after">
+                <group>
+                    <field name="helpdesk_team_id"/>
+                </group>
+            </field>
+<!--            <xpath expr="//notebook" position="inside">-->
+<!--                <page name="ticket_ids" string="Tickets">-->
+<!--                    <field name="ticket_ids"/>-->
+<!--                </page>-->
+<!--            </xpath>-->
+        </field>
+    </record>
+
+</odoo>
