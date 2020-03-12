@@ -14,6 +14,7 @@
     'data': [
         'security/helpdesk_security.xml',
         'security/ir.model.access.csv',
+        'wizard/helpdesk_set_responsable.xml',
         'views/menu.xml',
         'views/sale_order.xml',
         'views/helpdesk_ticket_views.xml',

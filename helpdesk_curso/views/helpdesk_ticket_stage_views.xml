@@ -4,7 +4,7 @@
     <!-- Form-->
     <record id="view_helpdesk_ticket_stage_form" model="ir.ui.view">
         <field name="name">view.helpdesk.ticket.stage.form</field>
-        <field name="model">helpdesk.ticket</field>
+        <field name="model">helpdesk.ticket.stage</field>
         <field name="arch" type="xml">
             <form string="Stage">
                 <sheet>
@@ -21,7 +21,7 @@
     <!-- Tree-->
     <record id="view_helpdesk_ticket_stage_tree" model="ir.ui.view">
         <field name="name">view.helpdesk.ticket.stage.form</field>
-        <field name="model">helpdesk.ticket</field>
+        <field name="model">helpdesk.ticket.stage</field>
         <field name="arch" type="xml">
             <tree string="Stages">
                 <field name="name"/>
@@ -32,7 +32,7 @@
     <!-- Search-->
     <record id="view_helpdesk_ticket_stage_search" model="ir.ui.view">
         <field name="name">view.helpdesk.ticket.stage.search</field>
-        <field name="model">helpdesk.ticket</field>
+        <field name="model">helpdesk.ticket.stage</field>
         <field name="arch" type="xml">
             <search string="Stage">
                 <field name="name" string="Stage"/>

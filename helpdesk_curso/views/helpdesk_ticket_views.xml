@@ -7,6 +7,11 @@
         <field name="model">helpdesk.ticket</field>
         <field name="arch" type="xml">
             <form string="Ticket">
+                <header>
+                    <button name="btn_auto_assign" type="object" string="Auto assing"/>
+                    <button name="%(action_helpdesk_set_responsable)d" type="action" string="Assign(To wizard)"></button>
+                    <field name="stage_id" widget="statusbar"/>
+                </header>
                 <sheet>
                     <group>
                         <group>
