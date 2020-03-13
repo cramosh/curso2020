@@ -19,7 +19,8 @@ class HelpdeskTicket(models.Model):
         string='Description'
     )
     date_deadline = fields.Datetime(
-        string='Date Limit'
+        string='Date Limit',
+        tracking=True
     )
     team_id = fields.Many2one(
         string='Team',
@@ -27,7 +28,8 @@ class HelpdeskTicket(models.Model):
     )
     ticket_stage_id = fields.Many2one(
         string='Stage',
-        comodel_name='helpdesk.ticket.stage'
+        comodel_name='helpdesk.ticket.stage', index=True, required=True, tracking=True,
+        default=1
     )
     user_ids = fields.Many2many(
         string='Users',
@@ -36,10 +38,17 @@ class HelpdeskTicket(models.Model):
         column1='ticket_id',
         column2='user_id'
     )
-    stage_id = fields.Many2one(
-        string='Stage',
-        comodel_name='helpdesk.ticket.stage'
+
+    tickets_qty = fields.Integer(
+        string='Ticket Qty',
+        compute="_compute_tickets_qty"
     )
+
+    @api.depends('user_ids')
+    def _compute_tickets_qty(self):
+        for record in self:
+            ticket_ids = record.search_count([('user_ids', 'in', record.user_ids.ids)])
+            self.tickets_qty = ticket_ids
 
     @api.onchange('name', 'date_deadline')
     def _onchange_description(self):
