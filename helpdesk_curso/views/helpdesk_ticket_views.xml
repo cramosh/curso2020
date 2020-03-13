@@ -1,6 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <!-- Kanban -->
+    <record id="view_helpdesk_ticket_kanban" model="ir.ui.view">
+        <field name="name">view.helpdesk.ticket.kanban</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="arch" type="xml">
+            <kanban class="oe_background_grey o_kanban_dashboard o_hr_kanban">
+                <field name="name"/>
+                <field name="date_deadline"/>
+                <field name="team_id"/>
+                <field name="user_ids"/>
+                <field name="ticket_stage_id"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div>
+                            <div t-attf-class="o_kanban_card_header">
+                                <div class="o_kanban_card_header_title">
+                                    <div class="o_primary">
+                                        <field name="name"/>
+                                    </div>
+                                    <div class="o_secondary">
+                                        <field name="date_deadline"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container o_kanban_card_content" t-if="!selection_mode">
+                                <div class="row">
+                                    <div class="col-6 o_kanban_primary_left">
+                                        <div class="o_secondary">
+                                            <field name="team_id"/>
+                                        </div>
+                                        <div class="o_secondary">
+                                            <field name="user_ids"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 o_kanban_primary_right">
+                                        <field name="ticket_stage_id"/>
+                                        <a name="%(helpdesk_curso.helpdesk_ticket_action)d" type="action">Ver ticket</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
     <!-- Form-->
     <record id="view_helpdesk_ticket_form" model="ir.ui.view">
         <field name="name">view.helpdesk.ticket.form</field>
@@ -9,8 +56,9 @@
             <form string="Ticket">
                 <header>
                     <button name="btn_auto_assign" type="object" string="Auto assing"/>
-                    <button name="%(action_helpdesk_set_responsable)d" type="action" string="Assign(To wizard)"></button>
-                    <field name="stage_id" widget="statusbar"/>
+                    <button name="%(action_helpdesk_set_responsable)d" type="action"
+                            string="Assign(To wizard)"></button>
+                    <field name="ticket_stage_id" widget="statusbar"/>
                 </header>
                 <sheet>
                     <group>
@@ -36,6 +84,11 @@
                         <field name="description"/>
                     </group>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
             </form>
         </field>
     </record>
@@ -70,7 +123,7 @@
         <field name="name">Tickets</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">helpdesk.ticket</field>
-        <field name="view_mode">tree,form,pivot</field>
+        <field name="view_mode">kanban,tree,form,pivot</field>
         <field name="help" type="html">
             <p class="oe_view_nocontent_create">
                 Click to add a new Ticket.

@@ -10,7 +10,10 @@
     'author': "Carlos Ramos Hernandez <cramos@puntsistemes.es>",
     'website': '',
     'license': 'AGPL-3',
-    'depends': ['sale'],
+    'depends': [
+        'sale',
+        'mail',
+    ],
     'data': [
         'security/helpdesk_security.xml',
         'security/ir.model.access.csv',

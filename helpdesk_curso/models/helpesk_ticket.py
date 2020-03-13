@@ -5,10 +5,11 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import Warning
 
-class HelpdeskTicket(models.Model):
 
+class HelpdeskTicket(models.Model):
     _name = 'helpdesk.ticket'
     _description = 'Ticket'
+    _inherit = ['mail.thread.cc', 'mail.activity.mixin']
 
     name = fields.Char(
         string='Name',
@@ -40,10 +41,13 @@ class HelpdeskTicket(models.Model):
         comodel_name='helpdesk.ticket.stage'
     )
 
+    @api.onchange('name', 'date_deadline')
+    def _onchange_description(self):
+        self.description = '%s - %s' % (self.name or 'Ticket', self.date_deadline or 'Sin fecha programada')
+
     def btn_auto_assign(self):
-        self.ensure_one()# NOS SEGURAMOS QUE SOLO SE EJECUTE CUANDO SELF TENGA UN REGISTRO
+        self.ensure_one()  # NOS SEGURAMOS QUE SOLO SE EJECUTE CUANDO SELF TENGA UN REGISTRO
         if self.env.user.id not in self.user_ids.ids:
-            self.user_ids = [4, self.env.user.id] #Añadimos un valor a un campo Many2many
+            self.user_ids = [4, self.env.user.id]  # Añadimos un valor a un campo Many2many
         else:
             raise Warning(_('This user is just assigned from task.'))
-
