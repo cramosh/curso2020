@@ -8,6 +8,7 @@
         <field name="arch" type="xml">
             <kanban class="oe_background_grey o_kanban_dashboard o_hr_kanban">
                 <field name="name"/>
+                <field name="partner_id"/>
                 <field name="date_deadline"/>
                 <field name="team_id"/>
                 <field name="user_ids"/>
@@ -19,25 +20,42 @@
                                 <div class="o_kanban_card_header_title">
                                     <div class="o_primary">
                                         <field name="name"/>
+                                        <label for="partner_id">
+                                            <strong>Partner:</strong>
+                                        </label>
+                                        <div t-if="record.displayed_image_id.value">
+                                            <field name="displayed_image_id" widget="attachment_image"/>
+                                        </div>
+                                        <field name="partner_id"/>
                                     </div>
                                     <div class="o_secondary">
+                                        <label for="date_deadline">
+                                            <strong>Fecha Limite:</strong>
+                                        </label>
                                         <field name="date_deadline"/>
                                     </div>
                                 </div>
                             </div>
-                            <div class="container o_kanban_card_content" t-if="!selection_mode">
+                            <div class="container o_kanban_card_content">
                                 <div class="row">
                                     <div class="col-6 o_kanban_primary_left">
                                         <div class="o_secondary">
+                                            <label for="team_id">
+                                                <strong>Equipo:</strong>
+                                            </label>
                                             <field name="team_id"/>
                                         </div>
                                         <div class="o_secondary">
+                                            <label for="user_ids">
+                                                <small>
+                                                    <strong>Asignado a:</strong>
+                                                </small>
+                                            </label>
                                             <field name="user_ids"/>
                                         </div>
                                     </div>
                                     <div class="col-6 o_kanban_primary_right">
-                                        <field name="ticket_stage_id"/>
-                                        <a name="%(helpdesk_curso.helpdesk_ticket_action)d" type="action">Ver ticket</a>
+                                        <!--                                        <field name="ticket_stage_id"/>-->
                                     </div>
                                 </div>
                             </div>

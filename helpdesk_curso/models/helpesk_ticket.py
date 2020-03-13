@@ -15,12 +15,16 @@ class HelpdeskTicket(models.Model):
         string='Name',
         required=True
     )
+    partner_id = fields.Many2one(
+        string='Partner',
+        comodel_name='res.partner',
+        required=True
+    )
     description = fields.Text(
         string='Description'
     )
-    date_deadline = fields.Datetime(
-        string='Date Limit',
-        tracking=True
+    date_deadline = fields.Date(
+        string='Date Limit'
     )
     team_id = fields.Many2one(
         string='Team',
@@ -28,7 +32,10 @@ class HelpdeskTicket(models.Model):
     )
     ticket_stage_id = fields.Many2one(
         string='Stage',
-        comodel_name='helpdesk.ticket.stage', index=True, required=True, tracking=True,
+        comodel_name='helpdesk.ticket.stage',
+        index=True,
+        required=True,
+        tracking=True,
         default=1
     )
     user_ids = fields.Many2many(
@@ -36,12 +43,17 @@ class HelpdeskTicket(models.Model):
         comodel_name='res.users',
         relation='helpdesk_ticket_user_rel',
         column1='ticket_id',
-        column2='user_id'
+        column2='user_id',
+        tracking=True
     )
-
     tickets_qty = fields.Integer(
         string='Ticket Qty',
         compute="_compute_tickets_qty"
+    )
+    displayed_image_id = fields.Many2one(
+        comodel_name='ir.attachment',
+        domain="[('res_model', '=', 'res.partner'), ('res_id', '=', partner_id), ('mimetype', 'ilike', 'image')]",
+        string='Cover Image'
     )
 
     @api.depends('user_ids')
@@ -60,3 +72,4 @@ class HelpdeskTicket(models.Model):
             self.user_ids = [4, self.env.user.id]  # Añadimos un valor a un campo Many2many
         else:
             raise Warning(_('This user is just assigned from task.'))
+
